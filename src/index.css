@@ -7,9 +7,10 @@ h1{
   justify-content: center;
 }
 .item {
-  font-family: Calibri;
+  font-family: Calibri, cursive;
   color: darkkhaki;
   margin-left: 5%;
+
 }
 #container {
   display: flex;
@@ -17,11 +18,7 @@ h1{
   justify-content: center;
   flex-direction: row;
   border-bottom: 2px dotted black;
-}
-#container:hover{
-  font-style: italic;
-  font-weight: bolder;
-  border-bottom: 2px solid black;
+  font-size:x-large;
 }
 .content{
   background: lavender;
