@@ -7,7 +7,7 @@ h1{
   justify-content: center;
 }
 .item {
-  font-family: Calibri, cursive;
+  font-family: "Kristen ITC", cursive;
   color: darkkhaki;
   margin-left: 5%;
 
@@ -22,8 +22,30 @@ h1{
 }
 .content{
   background: lavender;
-  margin:auto;
-  width: 50%;
+  margin : auto;
+  width: 70%;
   border: 1px solid black;
   padding: 30px;
 }
+.button {
+  background-color: lightsalmon;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: small;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.button:hover {
+  transform: scale(1.1);
+}
+
+.buttons{
+  display: inline-flex;
+  justify-content: right;
+}
+

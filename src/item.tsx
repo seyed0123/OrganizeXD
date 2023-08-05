@@ -13,6 +13,7 @@ interface ItemProps {
     content: { completed: boolean; name: string; num: number };
     key: number;
     handleChange:any;
+    delete:any;
 }
 
 class Item extends Component<ItemProps> {
@@ -35,7 +36,7 @@ class Item extends Component<ItemProps> {
         const { isHovered } = this.state;
 
         let containerStyle:{fontStyle?:string , fontWeight?:string , borderBottom?: string, fontSize?:string} = {};
-        let itemStyle:{ textDecoration?:string , opacity?:string} = {}
+        let itemStyle:{ textDecoration?:string , opacity?:string , marginRight:string} = {marginRight:'5px'}
         if(this.props.content.completed)
         {
             itemStyle.textDecoration='line-through'
@@ -54,6 +55,10 @@ class Item extends Component<ItemProps> {
                 <p className={'item'}>{content.num}- </p>
                 <input type={'checkbox'}  checked={content.completed} onChange={(event) => this.props.handleChange(this.props.content.num)}/>
                 <p className={'item'} style={itemStyle}>{content.name}</p>
+                <span className={'buttons'}>
+                <button className={'button'}>Edit</button>
+                <button className={'button'} onClick={(event) => this.props.delete(this.props.content.num)}>Remove</button>
+                </span>
             </div>
         );
     }
