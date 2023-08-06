@@ -22,10 +22,12 @@ h1{
 }
 .content{
   background: lavender;
-  margin : auto;
+  margin: auto;
   width: 70%;
   border: 1px solid black;
   padding: 30px;
+  border-radius: 10px;
+  box-shadow: 5px 5px lightgrey, 10px 10px grey, 15px 15px darkgray;
 }
 .button {
   background-color: lightsalmon;
@@ -49,3 +51,45 @@ h1{
   justify-content: right;
 }
 
+#form{
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.input{
+  margin-right: 2%;
+  margin-left: 2%;
+
+  /* Background and Border */
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  /* Text */
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+
+  /* Spacing */
+  padding: 10px;
+
+  /* Transition */
+  transition: border-color 0.3s ease-in-out;
+}
+.input:focus {
+  /* Modify appearance on focus */
+  outline: none;
+  border-color: #007bff;
+}
+.input:hover {
+  /* Modify appearance on hover */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.input::placeholder {
+  /* Styling the placeholder text */
+  color: #999;
+  font-style: italic;
+  font-family: Harrington, ui-serif;
+}

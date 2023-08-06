@@ -10,7 +10,7 @@ import React , { Component } from "react";
 //     );
 // }
 interface ItemProps {
-    content: { completed: boolean; name: string; num: number };
+    content: { completed: boolean; name: string; num: number , time:string , remain: {days:number , hours:number , minutes:number} };
     key: number;
     handleChange:any;
     delete:any;
@@ -36,13 +36,20 @@ class Item extends Component<ItemProps> {
         const { isHovered } = this.state;
 
         let containerStyle:{fontStyle?:string , fontWeight?:string , borderBottom?: string, fontSize?:string} = {};
-        let itemStyle:{ textDecoration?:string , opacity?:string , marginRight:string} = {marginRight:'5px'}
+        let itemStyle:{ textDecoration?:string , opacity?:string , marginRight:string , color?:string} = {marginRight:'5px'}
         if(this.props.content.completed)
         {
             itemStyle.textDecoration='line-through'
             containerStyle.fontSize = 'medium'
             itemStyle.opacity = '50%'
         }else {
+            if(content.remain.days<=1)
+                itemStyle.color = 'orange';
+            if(content.remain.days===0) {
+                itemStyle.color = 'red'
+                if(content.remain.hours<5)
+                    itemStyle.color = 'blue';
+            }
             if (isHovered) {
                 containerStyle.fontStyle = 'italic'
                 containerStyle.fontWeight = 'bolder'
@@ -55,9 +62,11 @@ class Item extends Component<ItemProps> {
                 <p className={'item'}>{content.num}- </p>
                 <input type={'checkbox'}  checked={content.completed} onChange={(event) => this.props.handleChange(this.props.content.num)}/>
                 <p className={'item'} style={itemStyle}>{content.name}</p>
+                <p className={'item'} style={itemStyle}>{content.time}</p>
                 <span className={'buttons'}>
                 <button className={'button'}>Edit</button>
                 <button className={'button'} onClick={(event) => this.props.delete(this.props.content.num)}>Remove</button>
+                <p className={'item'}>Time remains:<span style={{fontFamily:'Castellar'}}>{content.remain.days} days , {content.remain.hours} hours</span></p>
                 </span>
             </div>
         );

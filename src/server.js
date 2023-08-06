@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const moment = require('moment');
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const port = 3005;
@@ -36,8 +37,8 @@ app.get('/todo_item', (req, res) => {
 // Insert a new item
 app.post('/todo_item', (req, res) => {
     console.log('add to db ->',req.body);
-    const { name, completed } = req.body;
-    db.run(`INSERT INTO todo_item(name, completed) VALUES(?, ?)`, [name, completed], function(err) {
+    const { name, completed  , time } = req.body;
+    db.run(`INSERT INTO todo_item(name, completed , time) VALUES(?, ?, ?)`, [name, completed,time], function(err) {
         if (err) {
             return console.log(err.message);
         }
@@ -49,8 +50,8 @@ app.post('/todo_item', (req, res) => {
 app.put('/todo_item/:id', (req, res) => {
     console.log('update to db ->',req.body);
     const { id } = req.params;
-    const { name, completed } = req.body;
-    db.run(`UPDATE todo_item SET name = ?, completed = ? WHERE id = ?`, [name, completed, id], function(err) {
+    const { name, completed , time} = req.body;
+    db.run(`UPDATE todo_item SET name = ?, completed = ? , time = ?WHERE id = ?`, [name, completed, time, id], function(err) {
         if (err) {
             return console.log(err.message);
         }
