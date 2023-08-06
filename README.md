@@ -59,3 +59,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 If you have any questions or inquiries, feel free to contact me.
 
 Happy task management!
+<div align="center">
+
+## shots
+![1](shot.png)
+</div>
