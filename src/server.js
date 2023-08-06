@@ -1,12 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-const moment = require('moment');
+const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const port = 3005;
 
 app.use(cors())
 app.use(express.json()); // for parsing application/json
+
+const storageFile = '../storage.db';
+
+if (!fs.existsSync(storageFile)) {
+    fs.openSync(storageFile, 'w');
+}
 
 let db = new sqlite3.Database('../storage.db', (err) => {
     if (err) {
