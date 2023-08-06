@@ -131,7 +131,7 @@ class MyInfo extends React.Component<any>{
         return false;
     }
     render() {
-        let jsx = this.state.todo.map(element  => <Item key={element.id} content={{name:element.name , completed:element.completed , num:element.id , time:element.time , remain:this.calculateTimeDifference(element.time)}} handleChange={this.handleChange} delete={this.deleteItem}/>)
+        let jsx = this.state.todo.map(element  => <Item key={element.id} content={{name:element.name , completed:element.completed , num:element.id , time:element.time , remain:this.calculateTimeDifference(element.time)}} handleChange={this.handleChange} delete={this.deleteItem} update={this.updateItem}/>)
         jsx.sort((a,b) => this.sorting(a,b))
         let expire:JSX.Element[] = [];
         let nonExpired:JSX.Element[] = [];

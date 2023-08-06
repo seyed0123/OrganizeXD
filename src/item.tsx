@@ -1,4 +1,5 @@
-import React , { Component } from "react";
+import React , { Component , useState , useEffect } from "react";
+import Edit from "./edit";
 // function Item(props: {content: { completed: boolean; name:string , num:number},key:number}){
 //     console.log(props)
 //     return(
@@ -14,15 +15,30 @@ interface ItemProps {
     key: number;
     handleChange:any;
     delete:any;
+    update:any;
 }
 
 class Item extends Component<ItemProps> {
     state = {
-        isHovered: false
+        isHovered: false,
+        showIframe:false,
+        time:'',
+        name:''
     };
     constructor(props: ItemProps) {
         super(props);
+        this.formChange = this.formChange.bind(this);
+        this.date = this.date.bind(this);
+        this.state.time = this.props.content.time
+        this.state.name = this.props.content.name
+    }
 
+    formChange(event:any){
+        this.state.name=event.target.value
+    }
+
+    date(event:any){
+        this.state.time = event.target.value
     }
     handleMouseEnter = () => {
         this.setState({ isHovered: true });
@@ -37,9 +53,24 @@ class Item extends Component<ItemProps> {
             return true;
         return false;
     }
+
+    componentDidMount() {
+        window.addEventListener("message", this.handleFormSubmit, false);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("message", this.handleFormSubmit, false);
+    }
+
+    handleFormSubmit = (event: { data: string; }) => {
+        if (event.data === 'form-submitted') {
+            this.setState({ showIframe: false }); // Close/hide the iframe
+        }
+    }
+
     render() {
         const { content } = this.props;
-        const { isHovered } = this.state;
+        const { isHovered, showIframe } = this.state;
         const expire = this.isExpire(content.remain)
         let containerStyle:{fontStyle?:string , fontWeight?:string , borderBottom?: string, fontSize?:string} = {};
         let itemStyle:{ textDecoration?:string , opacity?:string , marginRight:string , color?:string} = {marginRight:'5px'}
@@ -81,10 +112,18 @@ class Item extends Component<ItemProps> {
                 <p className={'item'} style={itemStyle}>{content.name}</p>
                 <p className={'item'} style={itemStyle}>{content.time}</p>
                 <span className={'buttons'}>
-                <button className={'button'}>Edit</button>
+                <button className={'button'} onClick={() => this.setState({ showIframe: !this.state.showIframe })}>Edit</button>{/* Show the iframe on button click*/}
+                    {showIframe && <span>
+                                        <form id={'form_update'}>
+                                                    <input className={'input'} type='text' name='name' placeholder={'work'} onChange={this.formChange} />
+                                                    <input className={'input'} type={"datetime-local"} onChange={this.date} />
+                                                    <button className={'button'} onClick={(event) =>this.props.update(this.props.content.num , this.state.name , this.props.content.completed ,this.state.time)}>submit</button>
+                                        </form>
+                                    </span>
+                    }
                 <button className={'button'} onClick={(event) => this.props.delete(this.props.content.num)}>Remove</button>
-                <p className={'item'}>Time remains:<span style={{fontFamily:'Castellar'}}>{content.remain.days} days , {content.remain.hours} hours</span></p>
                 </span>
+                <p className={'item'} style={itemStyle}>Time remains:<span style={{fontFamily:'Castellar'}}>{content.remain.days} days , {content.remain.hours} hours</span></p>
             </div>
         );
     }
