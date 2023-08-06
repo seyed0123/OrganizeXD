@@ -25,7 +25,7 @@ db.run(`CREATE TABLE IF NOT EXISTS todo_item (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT,
                 completed INTEGER DEFAULT 0,
-                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`);
 console.log('table is now ready')
 

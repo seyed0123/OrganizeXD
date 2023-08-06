@@ -1,15 +1,4 @@
 import React , { Component , useState , useEffect } from "react";
-import Edit from "./edit";
-// function Item(props: {content: { completed: boolean; name:string , num:number},key:number}){
-//     console.log(props)
-//     return(
-//         <div id={'container'}>
-//             <p className={'item'}>{props.content.num}- </p>
-//             <input type={'checkbox'} checked={props.content.completed}/>
-//             <p className={'item'} >{props.content.name}</p>
-//         </div>
-//     );
-// }
 interface ItemProps {
     content: { completed: boolean; name: string; num: number , time:string , remain: {days:number , hours:number , minutes:number} };
     key: number;
@@ -112,16 +101,17 @@ class Item extends Component<ItemProps> {
                 <p className={'item'} style={itemStyle}>{content.name}</p>
                 <p className={'item'} style={itemStyle}>{content.time}</p>
                 <span className={'buttons'}>
-                <button className={'button'} onClick={() => this.setState({ showIframe: !this.state.showIframe })}>Edit</button>{/* Show the iframe on button click*/}
+                <button className={'button'} onClick={() => this.setState({ showIframe: !this.state.showIframe })}>{this.state.showIframe?'Cancel' : 'Edit'}</button>{/* Show the iframe on button click*/}
                     {showIframe && <span>
                                         <form id={'form_update'}>
                                                     <input className={'input'} type='text' name='name' placeholder={'work'} onChange={this.formChange} />
                                                     <input className={'input'} type={"datetime-local"} onChange={this.date} />
-                                                    <button className={'button'} onClick={(event) =>this.props.update(this.props.content.num , this.state.name , this.props.content.completed ,this.state.time)}>submit</button>
+                                                    <button className={'button'} style={{backgroundColor:'lightgreen' , color:'black'}} onClick={(event) =>this.props.update(this.props.content.num , this.state.name , this.props.content.completed ,this.state.time)}>submit</button>
                                         </form>
                                     </span>
                     }
-                <button className={'button'} onClick={(event) => this.props.delete(this.props.content.num)}>Remove</button>
+                    {this.state.showIframe?'' : <button className={'button'}
+                             onClick={(event) => this.props.delete(this.props.content.num)}>Remove</button>}
                 </span>
                 <p className={'item'} style={itemStyle}>Time remains:<span style={{fontFamily:'Castellar'}}>{content.remain.days} days , {content.remain.hours} hours</span></p>
             </div>
