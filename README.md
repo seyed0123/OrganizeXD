@@ -6,6 +6,13 @@
 
 OrganizeXD is a meticulously crafted and thoughtfully designed to-do list application that aims to revolutionize the way you organize and manage your tasks. With its seamless user experience and an array of powerful features, OrganizeXD empowers you to take control of your daily activities and maximize your productivity. From creating and prioritizing tasks to setting due dates and reminders, OrganizeXD provides a comprehensive suite of tools to help you stay on top of your commitments. With its sleek and modern interface, OrganizeXD offers a visually appealing and intuitive platform that makes task management a breeze. Whether you're a busy professional, a student, or anyone seeking to enhance their productivity, OrganizeXD is the ultimate companion to help you stay organized, and focused, and accomplish your goals with ease.
 
+### Technologies of the app
+<div align="center">
+<img src="express.png" alt="express.js" width="30%">
+<h1>&</h1>
+<img src="react.avif" alt="react" width="30%">
+</div>
+
 ## Features
 
 - Create, edit, and delete tasks
