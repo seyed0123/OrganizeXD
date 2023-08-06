@@ -31,10 +31,16 @@ class Item extends Component<ItemProps> {
     handleMouseLeave = () => {
         this.setState({ isHovered: false });
     }
+
+    isExpire(time:{days:number , hours:number , minutes:number}):boolean{
+        if(time.days < 0 || time.hours < 0 ||  time.minutes < 0)
+            return true;
+        return false;
+    }
     render() {
         const { content } = this.props;
         const { isHovered } = this.state;
-
+        const expire = this.isExpire(content.remain)
         let containerStyle:{fontStyle?:string , fontWeight?:string , borderBottom?: string, fontSize?:string} = {};
         let itemStyle:{ textDecoration?:string , opacity?:string , marginRight:string , color?:string} = {marginRight:'5px'}
         if(this.props.content.completed)
@@ -45,17 +51,28 @@ class Item extends Component<ItemProps> {
         }else {
             if(content.remain.days<=1)
                 itemStyle.color = 'orange';
+                containerStyle.borderBottom = '2px dotted orange'
             if(content.remain.days===0) {
                 itemStyle.color = 'red'
-                if(content.remain.hours<5)
+                containerStyle.borderBottom = '2px dotted red'
+                if(content.remain.hours<5) {
                     itemStyle.color = 'blue';
+                    containerStyle.borderBottom = '2px dotted blue'
+                }
             }
             if (isHovered) {
                 containerStyle.fontStyle = 'italic'
                 containerStyle.fontWeight = 'bolder'
-                containerStyle.borderBottom = '2px solid black'
-
+                containerStyle.borderBottom = '3px solid black'
             }
+        }
+        if(expire)
+        {
+            itemStyle.textDecoration='line-through'
+            containerStyle.fontSize = 'medium'
+            itemStyle.opacity = '50%'
+            itemStyle.color = 'gray'
+            containerStyle.borderBottom = '4px solid black'
         }
         return (
             <div id={'container'} style={containerStyle} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>

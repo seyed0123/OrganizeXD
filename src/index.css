@@ -1,6 +1,7 @@
 body{
   background-color: darkslategray;
   font-family: Century, fantasy;
+  color: #c78f2d;
 }
 h1{
   display: flex;
@@ -11,6 +12,16 @@ h1{
   color: darkkhaki;
   margin-left: 5%;
 
+}
+h2{
+  background: linear-gradient(to right, blue, darkblue);
+  color: #ffffff;
+  padding: 2% 0;
+  text-align: center;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
+  margin: 1%;
+  font-size: 2em;
+  font-family: Rockwell, cursive;
 }
 #container {
   display: flex;

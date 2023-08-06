@@ -124,20 +124,48 @@ class MyInfo extends React.Component<any>{
     {
         return (a.props.content.remain.days*100 + a.props.content.remain.hours*10 + a.props.content.remain.minutes)-(b.props.content.remain.days*100 + b.props.content.remain.hours*10 + b.props.content.remain.minutes)
     }
+
+    isExpire(time:{days:number , hours:number , minutes:number}):boolean{
+        if(time.days < 0 || time.hours < 0 ||  time.minutes < 0)
+            return true;
+        return false;
+    }
     render() {
-        const jsx = this.state.todo.map(element  => <Item key={element.id} content={{name:element.name , completed:element.completed , num:element.id , time:element.time , remain:this.calculateTimeDifference(element.time)}} handleChange={this.handleChange} delete={this.deleteItem}/>)
+        let jsx = this.state.todo.map(element  => <Item key={element.id} content={{name:element.name , completed:element.completed , num:element.id , time:element.time , remain:this.calculateTimeDifference(element.time)}} handleChange={this.handleChange} delete={this.deleteItem}/>)
         jsx.sort((a,b) => this.sorting(a,b))
+        let expire:JSX.Element[] = [];
+        let nonExpired:JSX.Element[] = [];
+        for(let i =0 ;i<jsx.length;i++)
+        {
+            let element = jsx[i];
+            if(this.isExpire(element.props.content.remain))
+            {
+                expire.push(element);
+            }else{
+                nonExpired.push(element);
+            }
+        }
         return(
             <div>
                 <Header/>
                 <div className={'content'}>
-                    {this.state.loading ? <h2 style={{textAlign:"center"}}>loading...</h2>:jsx}
+                    <h2>Incoming</h2>
+                    {this.state.loading ? <h3 >loading...</h3>:nonExpired}
+                    <br/>
+                    <h2 style={{textAlign:"center"}}>Expired</h2>
+                    {this.state.loading ? <h3 >loading...</h3>:expire}
+                    <br/>
+                    <h2 >Add item</h2>
                     <form id={'form'}>
                         <input className={'input'} type='text' name='name' placeholder={'work name'} onChange={this.formChange}/>
                         <input className={'input'} type={"datetime-local"} onChange={this.date}/>
                         <button className={'button'} onClick={this.submit}>submit</button>
                     </form>
                 </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         );
     }
